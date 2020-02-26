@@ -10884,3 +10884,45 @@ a.text-dark:focus {
   }
 }
 
+.welcome .full-height {
+  height: 100vh;
+}
+
+.welcome .flex-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.welcome .position-ref {
+  position: relative;
+}
+
+.welcome .top-right {
+  position: absolute;
+  right: 10px;
+  top: 18px;
+}
+
+.welcome .content {
+  text-align: center;
+}
+
+.welcome .title {
+  font-size: 84px;
+}
+
+.welcome .links > a {
+  color: #636b6f;
+  padding: 0 25px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.welcome .m-b-md {
+  margin-bottom: 30px;
+}
+
