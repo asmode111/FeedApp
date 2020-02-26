@@ -2,7 +2,7 @@
 
 * Computer :)
 * Terminal
-* Git
+* Git or Git Client
 * Docker
 
 ## How to install the project?
@@ -18,6 +18,10 @@
 3 - In your project folder, run the command below:
 
 ```./docker.sh start```
+
+4 - Install dependencies
+
+```composer update```
 
 ## How to stop the project?
 
