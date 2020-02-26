@@ -4,6 +4,8 @@
 * Terminal
 * Git or Git Client
 * Docker
+* Node
+* npm
 
 ## How to install the project?
 
@@ -47,11 +49,21 @@
 
 ## Troubleshooting
 
-- If you encounter with any dependency problem, please run the command below in `beadgame_php` container.
+- If you encounter with any PHP dependency problem, please run the command below in `beadgame_php` container.
+
+```./docker.sh php```
 
 ```rm -rf vendor```
 
 ```composer update```
+
+- If you encounter with any JS dependency problem, please run the command below outside of your containers.
+
+```cd ~/BeadGame/feed-reader```
+
+```rm -rf node_modules```
+
+```npm install && npm run dev```
 
 - If you still encounter with any problem, feel free to contact with me.
 
