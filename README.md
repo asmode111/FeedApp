@@ -27,13 +27,10 @@
 
 ```./docker.sh stop```
 
-## How to open the project in browser?
+## URLs
 
-```http://localhost```
-
-## How to open the PHPMyAdmin in browser?
-
-```http://localhost:8184```
+[Application](http://localhost)
+[PHPMyAdmin](http://localhost:8184)
 
 ## Troubleshooting
 
