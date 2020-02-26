@@ -21,7 +21,19 @@
 
 4 - Install dependencies
 
-```composer update```
+```cd ~/BeadGame/feed-reader```
+
+```./composer update```
+
+```npm install && npm run dev```
+
+5 - Run migrations
+
+```cd ~/BeadGame```
+
+```./docker.sh php```
+
+```php artisan migrate```
 
 ## How to stop the project?
 
