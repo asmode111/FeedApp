@@ -29,9 +29,9 @@
 
 ## URLs
 
-[Application](http://localhost){:target="_blank"}
+[Application](http://localhost)
 
-[PHPMyAdmin](http://localhost:8184){:target="_blank"}
+[PHPMyAdmin](http://localhost:8184)
 
 ## Troubleshooting
 
