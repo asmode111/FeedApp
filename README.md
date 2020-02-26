@@ -25,7 +25,11 @@
 
 ## How to open the project in browser?
 
-Web: `http://localhost`
+```http://localhost```
+
+## How to open the PHPMyAdmin in browser?
+
+```http://localhost:8184```
 
 ## Troubleshooting
 
