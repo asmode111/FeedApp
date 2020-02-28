@@ -49,7 +49,7 @@
 
 ## Email Sending/Receiving
 
-If you want to receive email while sign up and reset password, create an account at [mailtrap.io](https://mailtrap.io/) and provide the settings in the .env file like below:
+If you want to receive email while reseting the password, you should create an account at [mailtrap.io](https://mailtrap.io/) and provide the settings below in the `.env` file:
 
 ```
 MAIL_DRIVER=smtp
