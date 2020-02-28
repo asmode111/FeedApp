@@ -4,10 +4,11 @@ namespace App\Repositories;
 
 use App\Models\Word;
 use App\Repositories\Contracts\WordRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 class WordRepository implements WordRepositoryInterface
 {
-    public function all(): array
+    public function all(): Collection
     {
         return Word::all();
     }

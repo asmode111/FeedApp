@@ -23,6 +23,18 @@ class WordController extends Controller
         $this->wordService = $wordService;
         $this->wordRepository = $wordRepository;
     }
+    
+     /**
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $words = $this->wordRepository->all();
+
+        return response()->json([
+            'words' => $words->toArray(),
+        ]);
+    }
 
     /**
      * @return \Illuminate\Http\Response
@@ -32,27 +44,29 @@ class WordController extends Controller
         $body = $this->wordService->fetch();
         if (!$body) {
             return response()->json([
-                'isSuccess' => false,
+                'success' => false,
             ]);
         }
 
         $words = $this->wordService->extract($body);
         if (!$words) {
             return response()->json([
-                'isSuccess' => false,
+                'success' => false,
             ]);
         }
 
         $isSaved = $this->wordRepository->truncateAndSaveBulk($words);
         if (!$isSaved) {
             return response()->json([
-                'isSuccess' => false,
+                'success' => false,
             ]);
         }
 
+        $words = $this->wordRepository->all();
+
         return response()->json([
-            'isSuccess' => true,
-            'words' => $words,
+            'success' => true,
+            'words' => $words->toArray(),
         ]);
     }
 }

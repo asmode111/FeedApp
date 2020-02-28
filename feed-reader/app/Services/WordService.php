@@ -16,8 +16,8 @@ class WordService
      */
     public $error = '';
     
-    private const WORD_REGEX_RULE = '/<td><a href="(.*)" class="(.*)" title="(.*)">(.*)<\/a><\/td>/';
-    private const WORD_LIMIT = 49;
+    private const WORD_REGEX_RULE = '/<td><a href="(.*)" class="extiw" title="(.*)">(.*)<\/a><\/td>/';
+    private const WORD_LIMIT = 50;
 
     /**
      * string
@@ -45,10 +45,10 @@ class WordService
     public function extract(string $body): array
     {
         preg_match_all(self::WORD_REGEX_RULE, $body, $matchedWords);
-        if (!$matchedWords || !$matchedWords[4]) {
+        if (!$matchedWords || !$matchedWords[3]) {
             return [];
         }
 
-        return array_slice($matchedWords[4], 0, self::WORD_LIMIT);
+        return array_slice($matchedWords[3], 0, self::WORD_LIMIT);
     }
 }
