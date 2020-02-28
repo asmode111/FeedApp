@@ -65678,6 +65678,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Words__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Words */ "./resources/js/components/Words.js");
+/* harmony import */ var _Feed__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Feed */ "./resources/js/components/Feed.js");
+
+
+
+
+
+function Dashboard() {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row justify-content-center"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Words__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Feed__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Dashboard);
+
+if (document.getElementById('dashboard')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Dashboard, null), document.getElementById('dashboard'));
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/Feed.js":
+/*!*****************************************!*\
+  !*** ./resources/js/components/Feed.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -65688,25 +65720,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-function Dashboard() {
+function Feed() {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState2 = _slicedToArray(_useState, 2),
       words = _useState2[0],
       setWords = _useState2[1];
 
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    axios.get('/api/v1/words', {}).then(function (response) {
-      if (response.data.words) {
-        setWords(response.data.words);
-      }
-    })["catch"](function (error) {
-      console.log(error);
-    });
-  }, []);
+  function findFrequency() {
+    axios.get('/api/v1/feed', {}).then(function (response) {
+      console.log(response.data.words);
 
-  function extractWords() {
-    axios.get('/api/v1/word/extract', {}).then(function (response) {
       if (response.data.success && response.data.words) {
         setWords(response.data.words);
       }
@@ -65716,14 +65739,12 @@ function Dashboard() {
   }
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "row justify-content-center"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-12"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-header"
-  }, "Words"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Feed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-body"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row mb-0"
@@ -65732,9 +65753,9 @@ function Dashboard() {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    onClick: extractWords,
+    onClick: findFrequency,
     className: "btn btn-primary"
-  }, "Extract words"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Find frequency"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-10"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
@@ -65742,15 +65763,11 @@ function Dashboard() {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "col",
       key: index
-    }, word.word);
-  }))))))));
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, word.word), ": ", word.frequency);
+  })))))));
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (Dashboard);
-
-if (document.getElementById('dashboard')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Dashboard, null), document.getElementById('dashboard'));
-}
+/* harmony default export */ __webpack_exports__["default"] = (Feed);
 
 /***/ }),
 
@@ -65915,6 +65932,86 @@ function Register() {
 if (document.getElementById('register')) {
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Register, null), document.getElementById('register'));
 }
+
+/***/ }),
+
+/***/ "./resources/js/components/Words.js":
+/*!******************************************!*\
+  !*** ./resources/js/components/Words.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+function Words() {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      words = _useState2[0],
+      setWords = _useState2[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    axios.get('/api/v1/words', {}).then(function (response) {
+      if (response.data.words) {
+        setWords(response.data.words);
+      }
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  }, []);
+
+  function extractWords() {
+    axios.get('/api/v1/word/extract', {}).then(function (response) {
+      if (response.data.success && response.data.words) {
+        setWords(response.data.words);
+      }
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  }
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-12"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card mb-3"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-header"
+  }, "Words"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-body"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row mb-0"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-2"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: extractWords,
+    className: "btn btn-primary"
+  }, "Extract words"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-10"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row"
+  }, words && words.map(function (word, index) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "col",
+      key: index
+    }, word.word);
+  })))))));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Words);
 
 /***/ }),
 

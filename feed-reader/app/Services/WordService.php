@@ -7,20 +7,15 @@ use App\Services\Builder\RequestBuilder;
 class WordService
 {
     /**
-     * FetchServiceInterface
+     * @var FetchServiceInterface
      */
     private $fetchService;
-
-    /**
-     * string
-     */
-    public $error = '';
     
     private const WORD_REGEX_RULE = '/<td><a href="(.*)" class="extiw" title="(.*)">(.*)<\/a><\/td>/';
     private const WORD_LIMIT = 50;
 
     /**
-     * string
+     * @var string
      */
     private const URL = 'https://en.wikipedia.org/wiki/Most_common_words_in_English';
 
@@ -39,9 +34,6 @@ class WordService
         return $this->fetchService->getBody();
     }
 
-    /**
-     * $body string[]
-     */
     public function extract(string $body): array
     {
         preg_match_all(self::WORD_REGEX_RULE, $body, $matchedWords);

@@ -3,26 +3,26 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
-use App\Services\WordService;
+use App\Services\FeedService;
 use App\Repositories\Contracts\WordRepositoryInterface;
 
-class WordController extends Controller
+class FeedController extends Controller
 {
     /**
-     * @var WordService
+     * @var FeedService
      */
-    private $wordService;
-    
+    private $feedService;
+
     /**
      * @var WordRepositoryInterface
      */
     private $wordRepository;
 
     public function __construct(
-        WordService $wordService, 
+        FeedService $feedService, 
         WordRepositoryInterface $wordRepository
     ) {
-        $this->wordService = $wordService;
+        $this->feedService = $feedService;
         $this->wordRepository = $wordRepository;
     }
     
@@ -31,44 +31,33 @@ class WordController extends Controller
      */
     public function index()
     {
-        $words = $this->wordRepository->all();
-
-        return response()->json([
-            'words' => $words->toArray(),
-        ]);
-    }
-
-    /**
-     * @return \Illuminate\Http\Response
-     */
-    public function extract()
-    {
-        $body = $this->wordService->fetch();
+        $body = $this->feedService->fetch();
         if (!$body) {
             return response()->json([
                 'success' => false,
             ]);
         }
 
-        $words = $this->wordService->extract($body);
-        if (!$words) {
+        $feeds = $this->feedService->convert($body);
+        if (!$feeds) {
             return response()->json([
                 'success' => false,
             ]);
         }
 
-        $isSaved = $this->wordRepository->truncateAndSaveBulk($words);
-        if (!$isSaved) {
+        $words = $this->wordRepository->getWordsAsArray();
+        $topWords = $this->feedService->findFrequency($feeds, $words);
+        if (!$topWords) {
             return response()->json([
                 'success' => false,
             ]);
         }
 
-        $words = $this->wordRepository->all();
+        $response = $this->feedService->toResponse($topWords);
 
         return response()->json([
             'success' => true,
-            'words' => $words->toArray(),
+            'words' => $response,
         ]);
     }
 }

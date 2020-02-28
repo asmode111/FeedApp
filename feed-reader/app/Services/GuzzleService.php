@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Log;
 class GuzzleService implements FetchServiceInterface
 {
     /**
-     * Client
+     * @var Client
      */
     private $client;
 
     /**
-     * string
+     * @var string
      */
     private $body = '';
 

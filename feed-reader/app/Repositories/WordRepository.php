@@ -13,8 +13,15 @@ class WordRepository implements WordRepositoryInterface
         return Word::all();
     }
 
+    public function getWordsAsArray(): array
+    {
+        return Word::all()
+            ->pluck('word')
+            ->toArray();
+    }
+
     /**
-     * $words string[]
+     * @param string[] $words
      */
     public function truncateAndSaveBulk(array $words): bool
     {
@@ -29,7 +36,7 @@ class WordRepository implements WordRepositoryInterface
     }
 
     /**
-     * $words string[]
+     * @param string[] $words
      */
     public function saveBulk(array $words): bool
     {

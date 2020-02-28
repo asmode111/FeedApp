@@ -4,17 +4,17 @@ namespace App\Services\Builder;
 class RequestBuilder
 {
     /**
-     * string
+     * @var string
      */
     public $url = '';
     
     /**
-     * string
+     * @var string
      */
     public $method = 'GET';
 
     /**
-     * float
+     * @var float
      */
     public $timeout = 2.0;
 

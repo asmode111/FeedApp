@@ -8,6 +8,8 @@ interface WordRepositoryInterface
 {
     public function all();
 
+    public function getWordsAsArray();
+
     public function truncateAndSaveBulk(array $words);
 
     public function saveBulk(array $words);
