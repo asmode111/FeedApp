@@ -65748,6 +65748,11 @@ function Register() {
       emailError = _useState6[0],
       setEmailError = _useState6[1];
 
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+      _useState8 = _slicedToArray(_useState7, 2),
+      passwordError = _useState8[0],
+      setPasswordError = _useState8[1];
+
   function isEmailValid(email) {
     return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
   }
@@ -65771,14 +65776,29 @@ function Register() {
       })["catch"](function (error) {
         setEmailError(error.response.data.errors.email[0]);
       });
-    } else {
-      setEmailError('Please provide a valid email.');
     }
   }
 
-  function submitRegister() {
-    console.log(email);
-    console.log(password);
+  function submitRegister(e) {
+    e.preventDefault();
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/register', {
+      email: email,
+      password: password
+    }).then(function (response) {
+      if (response.status == 200 && response.statusText == 'OK') {
+        setEmailError('');
+        setPasswordError('');
+        location.href = response.request.responseURL;
+      }
+    })["catch"](function (error) {
+      if (error.response.data.errors.email && error.response.data.errors.email[0]) {
+        setEmailError(error.response.data.errors.email[0]);
+      }
+
+      if (error.response.data.errors.password && error.response.data.errors.password[0]) {
+        setPasswordError(error.response.data.errors.password[0]);
+      }
+    });
   }
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65793,7 +65813,9 @@ function Register() {
     className: "card-header"
   }, "Register"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-body"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    onSubmit: submitRegister
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
     htmlFor: "email",
@@ -65820,13 +65842,16 @@ function Register() {
     className: "col-md-6"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     type: "password",
-    className: "form-control",
+    className: "form-control" + (passwordError ? ' is-invalid' : ''),
     value: password,
     required: true,
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     }
-  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "invalid-feedback",
+    role: "alert"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, passwordError)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group row mb-0"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-6 offset-md-4"

@@ -47,6 +47,19 @@
 
 [PHPMyAdmin](http://localhost:8184)
 
+## Email Sending/Receiving
+
+If you want to receive email while sign up and reset password, create an account at [mailtrap.io](https://mailtrap.io/) and provide the settings in the .env file like below:
+
+```
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME={MAILTRAP_USERNAME}
+MAIL_PASSWORD={MAILTRAP_PASSWORD}
+MAIL_FROM_ADDRESS={MAILTRAP_EMAIL}
+```
+
 ## Troubleshooting
 
 - If you encounter with any PHP dependency problem, please run the command below in `beadgame_php` container.
