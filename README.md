@@ -70,6 +70,7 @@ MAIL_FROM_ADDRESS={MAILTRAP_EMAIL}
 
 ```composer update```
 
+
 - If you encounter with any JS dependency problem, please run the command below outside of your containers.
 
 ```cd ~/BeadGame/feed-reader```
@@ -77,6 +78,12 @@ MAIL_FROM_ADDRESS={MAILTRAP_EMAIL}
 ```rm -rf node_modules```
 
 ```npm install && npm run dev```
+
+- If you encounter with any database table/data related problem or just want to refresh tables, please run the command below in `beadgame_php` container.
+
+```./docker.sh php```
+
+```php artisan migrate:refresh```
 
 - If you still encounter with any problem, feel free to contact with me.
 
