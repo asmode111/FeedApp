@@ -20,3 +20,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('api/v1/user/email', 'API\V1\UserController@getByEmail');
+Route::get('api/v1/word/extract', 'API\V1\WordController@extract');
