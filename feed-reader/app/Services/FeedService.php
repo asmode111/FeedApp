@@ -13,17 +13,8 @@ class FeedService
      */
     private $fetchService;
 
-    /**
-     * @var string
-     */
-    public $error = '';
-
+    public const SOURCE_URL = 'https://www.theregister.co.uk/software/headlines.atom';
     private const WORD_LIMIT = 10;
-
-    /**
-     * @var string
-     */
-    private const URL = 'https://www.theregister.co.uk/software/headlines.atom';
 
     public function __construct(FetchServiceInterface $fetchService)
     {
@@ -33,7 +24,7 @@ class FeedService
     public function fetch(): string
     {
         $requestBuilder = (new RequestBuilder)
-            ->setUrl(self::URL);
+            ->setUrl(self::SOURCE_URL);
 
         $this->fetchService->fetch($requestBuilder);
 

@@ -11,13 +11,9 @@ class WordService
      */
     private $fetchService;
     
+    public const SOURCE_URL = 'https://en.wikipedia.org/wiki/Most_common_words_in_English';
     private const WORD_REGEX_RULE = '/<td><a href="(.*)" class="extiw" title="(.*)">(.*)<\/a><\/td>/';
     private const WORD_LIMIT = 50;
-
-    /**
-     * @var string
-     */
-    private const URL = 'https://en.wikipedia.org/wiki/Most_common_words_in_English';
 
     public function __construct(FetchServiceInterface $fetchService)
     {
@@ -27,7 +23,7 @@ class WordService
     public function fetch(): string
     {
         $requestBuilder = (new RequestBuilder)
-            ->setUrl(self::URL);
+            ->setUrl(self::SOURCE_URL);
 
         $this->fetchService->fetch($requestBuilder);
 

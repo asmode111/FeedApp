@@ -58,6 +58,7 @@ class FeedController extends Controller
         return response()->json([
             'success' => true,
             'words' => $response,
+            'sourceUrl' => $this->feedService::SOURCE_URL,
         ]);
     }
 }

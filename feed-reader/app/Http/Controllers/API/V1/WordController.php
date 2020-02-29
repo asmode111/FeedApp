@@ -35,6 +35,7 @@ class WordController extends Controller
 
         return response()->json([
             'words' => $words->toArray(),
+            'sourceUrl' => $this->wordService::SOURCE_URL,
         ]);
     }
 
@@ -69,6 +70,7 @@ class WordController extends Controller
         return response()->json([
             'success' => true,
             'words' => $words->toArray(),
+            'sourceUrl' => $this->wordService::SOURCE_URL,
         ]);
     }
 }

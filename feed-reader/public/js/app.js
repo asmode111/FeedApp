@@ -65720,21 +65720,40 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-function Feed() {
+function Feed(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState2 = _slicedToArray(_useState, 2),
       words = _useState2[0],
       setWords = _useState2[1];
 
-  function findFrequency() {
-    axios.get('/api/v1/feed', {}).then(function (response) {
-      console.log(response.data.words);
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+      _useState4 = _slicedToArray(_useState3, 2),
+      sourceUrl = _useState4[0],
+      setSourceUrl = _useState4[1];
 
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(props.message),
+      _useState6 = _slicedToArray(_useState5, 2),
+      message = _useState6[0],
+      setMessage = _useState6[1];
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+      _useState8 = _slicedToArray(_useState7, 2),
+      enableButton = _useState8[0],
+      setEnableButton = _useState8[1];
+
+  function findFrequency() {
+    setEnableButton(false);
+    axios.get('/api/v1/feed', {}).then(function (response) {
       if (response.data.success && response.data.words) {
         setWords(response.data.words);
+        setSourceUrl(response.data.sourceUrl);
+        setEnableButton(true);
+        setMessage('');
       }
     })["catch"](function (error) {
       console.log(error);
+      setMessage(props.message);
+      setEnableButton(true);
     });
   }
 
@@ -65744,7 +65763,12 @@ function Feed() {
     className: "card"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-header"
-  }, "Feed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Feed", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "float-right"
+  }, sourceUrl && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Source: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: sourceUrl,
+    target: "_blank"
+  }, sourceUrl)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-body"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row mb-0"
@@ -65754,19 +65778,22 @@ function Feed() {
     className: "form-group"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     onClick: findFrequency,
-    className: "btn btn-primary"
+    className: "btn btn-primary " + (!enableButton ? 'disabled' : '')
   }, "Find frequency"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-10"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
-  }, words && words.map(function (word, index) {
+  }, words.length > 0 ? words.map(function (word, index) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "col",
       key: index
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, word.word), ": ", word.frequency);
-  })))))));
+  }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, message)))))));
 }
 
+Feed.defaultProps = {
+  message: 'Please run the find button.'
+};
 /* harmony default export */ __webpack_exports__["default"] = (Feed);
 
 /***/ }),
@@ -65956,19 +65983,45 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-function Words() {
+function Words(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState2 = _slicedToArray(_useState, 2),
       words = _useState2[0],
       setWords = _useState2[1];
 
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+      _useState4 = _slicedToArray(_useState3, 2),
+      sourceUrl = _useState4[0],
+      setSourceUrl = _useState4[1];
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(props.message),
+      _useState6 = _slicedToArray(_useState5, 2),
+      message = _useState6[0],
+      setMessage = _useState6[1];
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+      _useState8 = _slicedToArray(_useState7, 2),
+      enableButton = _useState8[0],
+      setEnableButton = _useState8[1];
+
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    setEnableButton(false);
     axios.get('/api/v1/words', {}).then(function (response) {
       if (response.data.words) {
         setWords(response.data.words);
+        setSourceUrl(response.data.sourceUrl);
+        setEnableButton(true);
+
+        if (response.data.words.length > 0) {
+          setMessage('');
+        } else {
+          setMessage(props.message);
+        }
       }
     })["catch"](function (error) {
       console.log(error);
+      setMessage(props.message);
+      setEnableButton(true);
     });
   }, []);
 
@@ -65976,9 +66029,13 @@ function Words() {
     axios.get('/api/v1/word/extract', {}).then(function (response) {
       if (response.data.success && response.data.words) {
         setWords(response.data.words);
+        setSourceUrl(response.data.sourceUrl);
+        setEnableButton(true);
       }
     })["catch"](function (error) {
       console.log(error);
+      setMessage(props.message);
+      setEnableButton(true);
     });
   }
 
@@ -65988,7 +66045,12 @@ function Words() {
     className: "card mb-3"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-header"
-  }, "Words"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Words", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "float-right"
+  }, sourceUrl && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Source: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: sourceUrl,
+    target: "_blank"
+  }, sourceUrl)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-body"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row mb-0"
@@ -65998,19 +66060,22 @@ function Words() {
     className: "form-group"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     onClick: extractWords,
-    className: "btn btn-primary"
+    className: "btn btn-primary " + (!enableButton ? 'disabled' : '')
   }, "Extract words"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-10"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
-  }, words && words.map(function (word, index) {
+  }, words.length > 0 ? words.map(function (word, index) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "col",
       key: index
     }, word.word);
-  })))))));
+  }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, message)))))));
 }
 
+Words.defaultProps = {
+  message: 'No words found. Please run the extract button.'
+};
 /* harmony default export */ __webpack_exports__["default"] = (Words);
 
 /***/ }),
