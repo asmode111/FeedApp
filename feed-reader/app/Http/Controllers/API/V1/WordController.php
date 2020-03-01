@@ -75,3 +75,4 @@ class WordController extends Controller
         ]);
     }
 }
+
