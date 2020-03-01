@@ -69,29 +69,29 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
 3 - Install dependencies
 
-```cd FeedApp/feed-reader```
+```cd FeedApp```
 
-```./composer update```
+```./app.sh composer```
 
-```npm install && npm run dev```
+```./app.sh npm```
 
 4 - Run the containers
 
 ```cd FeedApp```
 
-```./docker.sh start```
+```./app.sh start```
 
 5 - Run migrations
 
 ```cd FeedApp```
 
-```./docker.sh php```
+```./app.sh php```
 
 ```php artisan migrate```
 
 ## How to stop the project?
 
-```./docker.sh stop```
+```./app.sh stop```
 
 ## URLs
 
@@ -116,7 +116,7 @@ MAIL_FROM_ADDRESS={MAILTRAP_EMAIL}
 
 - If you encounter with any PHP dependency problem, please run the command below in `feedapp_php` container.
 
-```./docker.sh php```
+```./app.sh php```
 
 ```rm -rf vendor```
 
@@ -133,7 +133,7 @@ MAIL_FROM_ADDRESS={MAILTRAP_EMAIL}
 
 - If you encounter with any database table/data related problem or just want to refresh tables, please run the command below in `feedapp_php` container.
 
-```./docker.sh php```
+```./app.sh php```
 
 ```php artisan migrate:refresh```
 
