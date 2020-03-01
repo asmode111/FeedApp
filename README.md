@@ -1,8 +1,8 @@
 ## Requirements
 
 * Terminal
-* Git or Git Client
 * Docker
+* Git
 * Node
 * npm
 
