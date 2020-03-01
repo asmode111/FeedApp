@@ -9,15 +9,15 @@ function stop() {
 }
 
 function php() {
-    docker exec -it beadgame_php /bin/bash
+    docker exec -it feedapp_php /bin/bash
 }
 
 function server() {
-    docker exec -it beadgame_nginx /bin/bash
+    docker exec -it feedapp_nginx /bin/bash
 }
 
 function db() {
-    docker exec -it beadgame_db /bin/bash
+    docker exec -it feedapp_db /bin/bash
 }
 
 "$@"

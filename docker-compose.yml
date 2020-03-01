@@ -1,7 +1,7 @@
 version: '3'
 services:
   nginx:
-    container_name: beadgame_nginx
+    container_name: feedapp_nginx
     build:
       context: ./
       dockerfile: Dockerfile-nginx
@@ -16,29 +16,29 @@ services:
     depends_on:
       - db
     networks:
-      - beadgame
+      - feedapp
   php:
-    container_name: beadgame_php
+    container_name: feedapp_php
     build:
       context: ./
       dockerfile: Dockerfile-php
     volumes:
       - ./feed-reader:/var/www/html
     networks:
-      - beadgame
+      - feedapp
   db:
     image: mysql:latest
-    container_name: beadgame_db
+    container_name: feedapp_db
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: beadgame
+      MYSQL_DATABASE: feedapp
     networks:
-      - beadgame
+      - feedapp
   pma:
     image: phpmyadmin/phpmyadmin
-    container_name: beadgame_pma
+    container_name: feedapp_pma
     links:
       - db
     depends_on:
@@ -50,7 +50,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       PMA_ARBITRARY: 1
     networks:
-      - beadgame
+      - feedapp
 networks:
-  beadgame:
+  feedapp:
     driver: bridge

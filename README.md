@@ -1,6 +1,5 @@
 ## Requirements
 
-* Computer :)
 * Terminal
 * Git or Git Client
 * Docker
@@ -11,11 +10,11 @@
 
 1 - Clone the project from Github.
 
-```git clone https://github.com/onurdegerli/BeadGame.git```
+```git clone https://github.com/onurdegerli/FeedApp.git```
 
 2 - Change directory to your project home.
 
-```cd ~/BeadGame```
+```cd ~/FeedApp```
 
 3 - In your project folder, run the command below:
 
@@ -23,7 +22,7 @@
 
 4 - Install dependencies
 
-```cd ~/BeadGame/feed-reader```
+```cd ~/FeedApp/feed-reader```
 
 ```./composer update```
 
@@ -31,7 +30,7 @@
 
 5 - Run migrations
 
-```cd ~/BeadGame```
+```cd ~/FeedApp```
 
 ```./docker.sh php```
 
@@ -62,7 +61,7 @@ MAIL_FROM_ADDRESS={MAILTRAP_EMAIL}
 
 ## Troubleshooting
 
-- If you encounter with any PHP dependency problem, please run the command below in `beadgame_php` container.
+- If you encounter with any PHP dependency problem, please run the command below in `feedapp_php` container.
 
 ```./docker.sh php```
 
@@ -73,13 +72,13 @@ MAIL_FROM_ADDRESS={MAILTRAP_EMAIL}
 
 - If you encounter with any JS dependency problem, please run the command below outside of your containers.
 
-```cd ~/BeadGame/feed-reader```
+```cd ~/FeedApp/feed-reader```
 
 ```rm -rf node_modules```
 
 ```npm install && npm run dev```
 
-- If you encounter with any database table/data related problem or just want to refresh tables, please run the command below in `beadgame_php` container.
+- If you encounter with any database table/data related problem or just want to refresh tables, please run the command below in `feedapp_php` container.
 
 ```./docker.sh php```
 
