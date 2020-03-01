@@ -29,7 +29,7 @@ function Words(props) {
     setWords('');
     setMessage(props.loadingMessage);
     setEnableButton(false);
-    axios.get('/api/v1/word/extract', {})
+    axios.get('/api/v1/words/extract', {})
       .then((response) => {
         setResponses(response);
       })
