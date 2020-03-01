@@ -4,10 +4,13 @@ import Words from './Words';
 import Feed from './Feed';
 
 function Dashboard() {
+
+  const [wordsExist, setWordsExist] = useState(false);
+
   return (
     <div className="row justify-content-center">
-      <Words />
-      <Feed />
+      <Words setWordsExistFromChild={setWordsExist} />
+      <Feed wordsExist={wordsExist} />
     </div>
   );
 }

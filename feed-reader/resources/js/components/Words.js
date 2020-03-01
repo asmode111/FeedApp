@@ -17,6 +17,7 @@ function Words(props) {
       console.log(error);
       setMessage(props.notFoundmessage);
       setEnableButton(true);
+      props.setWordsExistFromChild(false);
     });
   }, []);
 
@@ -36,6 +37,7 @@ function Words(props) {
         console.log(error);
         setMessage(props.notFoundmessage);
         setEnableButton(true);
+        props.setWordsExistFromChild(false);
       });
   }
 
@@ -48,8 +50,10 @@ function Words(props) {
       setWords(response.data.words);
       setSourceUrl(response.data.sourceUrl);
       setEnableButton(true);
+      props.setWordsExistFromChild(true);
     } else {
       setMessage(props.notFoundmessage);
+      props.setWordsExistFromChild(false);
     }
   }
 

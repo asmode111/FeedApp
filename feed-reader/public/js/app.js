@@ -65680,15 +65680,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Words__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Words */ "./resources/js/components/Words.js");
 /* harmony import */ var _Feed__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Feed */ "./resources/js/components/Feed.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
 
 
 function Dashboard() {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      wordsExist = _useState2[0],
+      setWordsExist = _useState2[1];
+
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row justify-content-center"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Words__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Feed__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Words__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    setWordsExistFromChild: setWordsExist
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Feed__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    wordsExist: wordsExist
+  }));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Dashboard);
@@ -65736,15 +65753,35 @@ function Feed(props) {
       message = _useState6[0],
       setMessage = _useState6[1];
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState8 = _slicedToArray(_useState7, 2),
       enableButton = _useState8[0],
       setEnableButton = _useState8[1];
 
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      buttonClicked = _useState10[0],
+      setButtonClicked = _useState10[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (!buttonClicked) {
+      setEnableButton(props.wordsExist);
+
+      if (!props.wordsExist) {
+        setMessage(props.notFoundmessage);
+      } else {
+        setMessage(props.message);
+      }
+    }
+  });
+
   function findFrequency() {
-    // if (!enableButton) {
-    //   return;
-    // }
+    setButtonClicked(true);
+
+    if (!enableButton) {
+      return;
+    }
+
     setMessage(props.loadingMessage);
     setEnableButton(false);
     axios.get('/api/v1/feed', {}).then(function (response) {
@@ -65797,6 +65834,7 @@ function Feed(props) {
 
 Feed.defaultProps = {
   loadingMessage: 'Words are loading...',
+  notFoundmessage: 'No words found. Please run the extract button.',
   message: 'Please run the find button.'
 };
 /* harmony default export */ __webpack_exports__["default"] = (Feed);
@@ -66017,6 +66055,7 @@ function Words(props) {
       console.log(error);
       setMessage(props.notFoundmessage);
       setEnableButton(true);
+      props.setWordsExistFromChild(false);
     });
   }, []);
 
@@ -66034,6 +66073,7 @@ function Words(props) {
       console.log(error);
       setMessage(props.notFoundmessage);
       setEnableButton(true);
+      props.setWordsExistFromChild(false);
     });
   }
 
@@ -66042,8 +66082,10 @@ function Words(props) {
       setWords(response.data.words);
       setSourceUrl(response.data.sourceUrl);
       setEnableButton(true);
+      props.setWordsExistFromChild(true);
     } else {
       setMessage(props.notFoundmessage);
+      props.setWordsExistFromChild(false);
     }
   }
 

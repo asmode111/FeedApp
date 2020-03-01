@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Feed(props) {
 
   const [words, setWords] = useState('');
   const [sourceUrl, setSourceUrl] = useState('');
   const [message, setMessage] = useState(props.message);
-  const [enableButton, setEnableButton] = useState(true);
+  const [enableButton, setEnableButton] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
+
+  useEffect(() => {
+    if (!buttonClicked) {
+      setEnableButton(props.wordsExist);
+      if (!props.wordsExist) {
+        setMessage(props.notFoundmessage);
+      } else {
+        setMessage(props.message);
+      }
+    }
+  });
 
   function findFrequency() {
-    // if (!enableButton) {
-    //   return;
-    // }
+    setButtonClicked(true);
+    if (!enableButton) {
+      return;
+    }
 
     setMessage(props.loadingMessage);
     setEnableButton(false);
@@ -67,6 +80,7 @@ function Feed(props) {
 
 Feed.defaultProps = {
   loadingMessage: 'Words are loading...',
+  notFoundmessage: 'No words found. Please run the extract button.',
   message: 'Please run the find button.',
 };
 
