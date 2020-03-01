@@ -17,7 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/dashboard', 'HomeController@index')->name('dashboard')->middleware('auth');
 
 Route::get('api/v1/user/email', 'API\V1\UserController@getByEmail');
 Route::get('api/v1/words', 'API\V1\WordController@index')->middleware('auth');
