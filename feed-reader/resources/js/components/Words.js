@@ -49,12 +49,13 @@ function Words(props) {
     ) {
       setWords(response.data.words);
       setSourceUrl(response.data.sourceUrl);
-      setEnableButton(true);
       props.setWordsExistFromChild(true);
     } else {
       setMessage(props.notFoundmessage);
       props.setWordsExistFromChild(false);
     }
+
+    setEnableButton(true);
   }
 
   return (

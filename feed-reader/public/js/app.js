@@ -66081,12 +66081,13 @@ function Words(props) {
     if (response.data.success == true && typeof response.data.words != 'undefined' && response.data.words.length > 0) {
       setWords(response.data.words);
       setSourceUrl(response.data.sourceUrl);
-      setEnableButton(true);
       props.setWordsExistFromChild(true);
     } else {
       setMessage(props.notFoundmessage);
       props.setWordsExistFromChild(false);
     }
+
+    setEnableButton(true);
   }
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

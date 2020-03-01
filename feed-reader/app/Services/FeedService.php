@@ -4,7 +4,6 @@ namespace App\Services;
 use App\Services\Contracts\FetchServiceInterface;
 use App\Services\Builder\RequestBuilder;
 use App\Services\Builder\WordFrequencyBuilder;
-use Illuminate\Database\Eloquent\Collection;
 
 class FeedService
 {
