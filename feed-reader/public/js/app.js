@@ -65886,8 +65886,13 @@ function Register() {
 
   var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState8 = _slicedToArray(_useState7, 2),
-      passwordError = _useState8[0],
-      setPasswordError = _useState8[1];
+      emailInfo = _useState8[0],
+      setEmailInfo = _useState8[1];
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+      _useState10 = _slicedToArray(_useState9, 2),
+      passwordError = _useState10[0],
+      setPasswordError = _useState10[1];
 
   function isEmailValid(email) {
     return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
@@ -65908,9 +65913,11 @@ function Register() {
       }).then(function (response) {
         if (response.data.isSuccess && response.data.isSuccess == true) {
           setEmailError('');
+          setEmailInfo('Email is available.');
         }
       })["catch"](function (error) {
         setEmailError(error.response.data.errors.email[0]);
+        setEmailInfo('');
       });
     }
   }
@@ -65927,11 +65934,12 @@ function Register() {
         location.href = response.request.responseURL;
       }
     })["catch"](function (error) {
-      if (error.response.data.errors.email && error.response.data.errors.email[0]) {
+      if (typeof error.response.data.errors.email != 'undefined' && error.response.data.errors.email[0]) {
         setEmailError(error.response.data.errors.email[0]);
+        setEmailInfo('');
       }
 
-      if (error.response.data.errors.password && error.response.data.errors.password[0]) {
+      if (typeof error.response.data.errors.password != 'undefined' && error.response.data.errors.password[0]) {
         setPasswordError(error.response.data.errors.password[0]);
       }
     });
@@ -65960,7 +65968,7 @@ function Register() {
     className: "col-md-6"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     type: "email",
-    className: "form-control" + (emailError ? ' is-invalid' : ''),
+    className: "form-control" + (emailError ? ' is-invalid' : '') + (emailInfo ? ' is-valid' : ''),
     value: email,
     required: true,
     onChange: function onChange(e) {
@@ -65969,7 +65977,10 @@ function Register() {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "invalid-feedback",
     role: "alert"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, emailError)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, emailError)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "valid-feedback",
+    role: "info"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, emailInfo)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
     htmlFor: "password",

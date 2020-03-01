@@ -7,6 +7,7 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [emailInfo, setEmailInfo] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
   function isEmailValid(email) {
@@ -31,10 +32,12 @@ function Register() {
             && response.data.isSuccess == true
           ) {
             setEmailError('');
+            setEmailInfo('Email is available.');
           }
         })
         .catch((error) => {
           setEmailError(error.response.data.errors.email[0]);
+          setEmailInfo('');
         });
     }
   }
@@ -55,13 +58,14 @@ function Register() {
       }
     })
     .catch((error) => {
-      if (error.response.data.errors.email
+      if (typeof error.response.data.errors.email != 'undefined'
         && error.response.data.errors.email[0]
       ) {
         setEmailError(error.response.data.errors.email[0]);
+        setEmailInfo('');
       }
       
-      if (error.response.data.errors.password
+      if (typeof error.response.data.errors.password != 'undefined'
         && error.response.data.errors.password[0]
       ) {
         setPasswordError(error.response.data.errors.password[0]);
@@ -82,7 +86,7 @@ function Register() {
                   <div className="col-md-6">
                       <input 
                         type="email"
-                        className={"form-control" + (emailError ? ' is-invalid' : '')} 
+                        className={"form-control" + (emailError ? ' is-invalid' : '') + (emailInfo ? ' is-valid' : '')} 
                         value={email} 
                         required 
                         onChange={e => checkEmail(e.target.value)} 
@@ -90,6 +94,9 @@ function Register() {
 
                       <span className="invalid-feedback" role="alert">
                         <strong>{emailError}</strong>
+                      </span>
+                      <span className="valid-feedback" role="info">
+                        <strong>{emailInfo}</strong>
                       </span>
                   </div>
                 </div>
