@@ -12,29 +12,23 @@
 
 ```git clone https://github.com/onurdegerli/FeedApp.git```
 
-2 - Create a `.env` file
-
 ```cd FeedApp```
+
+2 - Create a `.env` file
 
 ```./app.sh env```
 
 3 - Install dependencies
 
-```cd FeedApp```
-
 ```./app.sh composer```
 
 ```./app.sh npm```
 
-4 - Run the containers
-
-```cd FeedApp```
+4 - Run containers
 
 ```./app.sh start```
 
 5 - Run migrations
-
-```cd FeedApp```
 
 ```./app.sh php```
 
