@@ -44,6 +44,11 @@
 
 [PHPMyAdmin](http://localhost:8184)
 
+````
+username: root
+password: root
+````
+
 ## Email Sending/Receiving
 
 If you want to receive email while reseting the password, you should create an account at [mailtrap.io](https://mailtrap.io/) and provide the settings below in the `.env` file:
