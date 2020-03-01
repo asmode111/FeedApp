@@ -34,6 +34,7 @@ class WordController extends Controller
         $words = $this->wordRepository->all();
 
         return response()->json([
+            'success' => true,
             'words' => $words->toArray(),
             'sourceUrl' => $this->wordService::SOURCE_URL,
         ]);

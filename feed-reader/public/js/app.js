@@ -65742,6 +65742,10 @@ function Feed(props) {
       setEnableButton = _useState8[1];
 
   function findFrequency() {
+    // if (!enableButton) {
+    //   return;
+    // }
+    setMessage(props.loadingMessage);
     setEnableButton(false);
     axios.get('/api/v1/feed', {}).then(function (response) {
       if (response.data.success && response.data.words) {
@@ -65792,6 +65796,7 @@ function Feed(props) {
 }
 
 Feed.defaultProps = {
+  loadingMessage: 'Words are loading...',
   message: 'Please run the find button.'
 };
 /* harmony default export */ __webpack_exports__["default"] = (Feed);
@@ -65994,7 +65999,7 @@ function Words(props) {
       sourceUrl = _useState4[0],
       setSourceUrl = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(props.message),
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(props.loadingMessage),
       _useState6 = _slicedToArray(_useState5, 2),
       message = _useState6[0],
       setMessage = _useState6[1];
@@ -66007,36 +66012,39 @@ function Words(props) {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     setEnableButton(false);
     axios.get('/api/v1/words', {}).then(function (response) {
-      if (response.data.words) {
-        setWords(response.data.words);
-        setSourceUrl(response.data.sourceUrl);
-        setEnableButton(true);
-
-        if (response.data.words.length > 0) {
-          setMessage('');
-        } else {
-          setMessage(props.message);
-        }
-      }
+      setResponses(response);
     })["catch"](function (error) {
       console.log(error);
-      setMessage(props.message);
+      setMessage(props.notFoundmessage);
       setEnableButton(true);
     });
   }, []);
 
   function extractWords() {
+    if (!enableButton) {
+      return;
+    }
+
+    setWords('');
+    setMessage(props.loadingMessage);
+    setEnableButton(false);
     axios.get('/api/v1/word/extract', {}).then(function (response) {
-      if (response.data.success && response.data.words) {
-        setWords(response.data.words);
-        setSourceUrl(response.data.sourceUrl);
-        setEnableButton(true);
-      }
+      setResponses(response);
     })["catch"](function (error) {
       console.log(error);
-      setMessage(props.message);
+      setMessage(props.notFoundmessage);
       setEnableButton(true);
     });
+  }
+
+  function setResponses(response) {
+    if (response.data.success == true && typeof response.data.words != 'undefined' && response.data.words.length > 0) {
+      setWords(response.data.words);
+      setSourceUrl(response.data.sourceUrl);
+      setEnableButton(true);
+    } else {
+      setMessage(props.notFoundmessage);
+    }
   }
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66074,7 +66082,8 @@ function Words(props) {
 }
 
 Words.defaultProps = {
-  message: 'No words found. Please run the extract button.'
+  loadingMessage: 'Words are loading...',
+  notFoundmessage: 'No words found. Please run the extract button.'
 };
 /* harmony default export */ __webpack_exports__["default"] = (Words);
 

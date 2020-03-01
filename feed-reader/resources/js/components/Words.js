@@ -4,46 +4,53 @@ function Words(props) {
 
   const [words, setWords] = useState('');
   const [sourceUrl, setSourceUrl] = useState('');
-  const [message, setMessage] = useState(props.message);
+  const [message, setMessage] = useState(props.loadingMessage);
   const [enableButton, setEnableButton] = useState(true);
 
   useEffect(() => {
     setEnableButton(false);
     axios.get('/api/v1/words', {})
     .then((response) => {
-      if (response.data.words) {
-        setWords(response.data.words);
-        setSourceUrl(response.data.sourceUrl);
-        setEnableButton(true);
-
-        if (response.data.words.length > 0) {
-          setMessage('');
-        } else {
-          setMessage(props.message);
-        }
-      }
+      setResponses(response);
     })
     .catch((error) => {
       console.log(error);
-      setMessage(props.message);
+      setMessage(props.notFoundmessage);
       setEnableButton(true);
     });
   }, []);
 
   function extractWords() {
+    if (!enableButton) {
+      return;
+    }
+
+    setWords('');
+    setMessage(props.loadingMessage);
+    setEnableButton(false);
     axios.get('/api/v1/word/extract', {})
       .then((response) => {
-        if (response.data.success && response.data.words) {
-          setWords(response.data.words);
-          setSourceUrl(response.data.sourceUrl);
-          setEnableButton(true);
-        }
+        setResponses(response);
       })
       .catch((error) => {
         console.log(error);
-        setMessage(props.message);
+        setMessage(props.notFoundmessage);
         setEnableButton(true);
       });
+  }
+
+  function setResponses(response) {
+    if (
+      response.data.success == true
+      && typeof response.data.words != 'undefined'
+      && response.data.words.length > 0
+    ) {
+      setWords(response.data.words);
+      setSourceUrl(response.data.sourceUrl);
+      setEnableButton(true);
+    } else {
+      setMessage(props.notFoundmessage);
+    }
   }
 
   return (
@@ -81,7 +88,8 @@ function Words(props) {
 }
 
 Words.defaultProps = {
-  message: 'No words found. Please run the extract button.',
+  loadingMessage: 'Words are loading...',
+  notFoundmessage: 'No words found. Please run the extract button.',
 };
 
 export default Words;

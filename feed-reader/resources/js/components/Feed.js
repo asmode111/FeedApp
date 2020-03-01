@@ -8,6 +8,11 @@ function Feed(props) {
   const [enableButton, setEnableButton] = useState(true);
 
   function findFrequency() {
+    // if (!enableButton) {
+    //   return;
+    // }
+
+    setMessage(props.loadingMessage);
     setEnableButton(false);
     axios.get('/api/v1/feed', {})
       .then((response) => {
@@ -61,6 +66,7 @@ function Feed(props) {
 }
 
 Feed.defaultProps = {
+  loadingMessage: 'Words are loading...',
   message: 'Please run the find button.',
 };
 
