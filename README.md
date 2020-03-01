@@ -14,7 +14,7 @@
 
 2 - Create `.env` file and paste the lines below:
 
-```cd ~/FeedApp/feed-reader```
+```cd FeedApp/feed-reader```
 
 ```nano .env```
 
@@ -69,7 +69,7 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
 3 - Install dependencies
 
-```cd ~/FeedApp/feed-reader```
+```cd FeedApp/feed-reader```
 
 ```./composer update```
 
@@ -77,13 +77,13 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
 4 - Run the containers
 
-```cd ~/FeedApp```
+```cd FeedApp```
 
 ```./docker.sh start```
 
 5 - Run migrations
 
-```cd ~/FeedApp```
+```cd FeedApp```
 
 ```./docker.sh php```
 
@@ -125,7 +125,7 @@ MAIL_FROM_ADDRESS={MAILTRAP_EMAIL}
 
 - If you encounter with any JS dependency problem, please run the command below outside of your containers.
 
-```cd ~/FeedApp/feed-reader```
+```cd FeedApp/feed-reader```
 
 ```rm -rf node_modules```
 
