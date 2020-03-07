@@ -33,7 +33,14 @@ class FeedService
     public function convert(string $body): array
     {
         $xml = simplexml_load_string($body);
+        if (!$xml) {
+            return [];
+        }
+
         $json = json_encode($xml);
+        if (!$json) {
+            return [];
+        }
 
         return json_decode($json, TRUE);
     }
@@ -46,6 +53,19 @@ class FeedService
         
         $entries = $feeds['entry'];
         $matched = collect($entries)->map(static function ($entry) {
+            $content = '';
+            if (!empty($entry['title'])) {
+                $content .= $entry['title'];
+            }
+
+            if (!empty($entry['summary'])) {
+                $content .= $entry['summary'];
+            }
+
+            if (!$content) {
+                return '';
+            }
+
             $content = strtolower(strip_tags($entry['title'] . ' ' . $entry['summary']));
             $content = preg_replace('/[^A-Za-z0-9]/', ' ', $content);
             $row = explode(' ', $content);
