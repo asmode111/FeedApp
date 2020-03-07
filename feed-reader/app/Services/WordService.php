@@ -27,11 +27,9 @@ class WordService
 
         $isFetched = $this->fetchService->fetch($requestBuilder);
 
-        if ($isFetched) {
-            return $this->fetchService->getBody();
-        }
-
-        return '';
+        return $isFetched
+            ? $this->fetchService->getBody()
+            : '';
     }
 
     public function extract(string $body): array
