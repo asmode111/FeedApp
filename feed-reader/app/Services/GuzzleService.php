@@ -43,7 +43,7 @@ class GuzzleService implements FetchServiceInterface
         return false;
     }
 
-    public function getBody()
+    public function getBody(): string
     {
         return $this->body;
     }

@@ -25,9 +25,13 @@ class WordService
         $requestBuilder = (new RequestBuilder)
             ->setUrl(self::SOURCE_URL);
 
-        $this->fetchService->fetch($requestBuilder);
+        $isFetched = $this->fetchService->fetch($requestBuilder);
 
-        return $this->fetchService->getBody();
+        if ($isFetched) {
+            return $this->fetchService->getBody();
+        }
+
+        return '';
     }
 
     public function extract(string $body): array
