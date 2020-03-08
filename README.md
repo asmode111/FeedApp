@@ -36,7 +36,17 @@
 
 ## How to stop the project?
 
+```cd FeedApp```
+
 ```./app.sh stop```
+
+## How to run the unit tests?
+
+```cd FeedApp```
+
+```./app.sh php```
+
+```vendor/bin/phpunit```
 
 ## URLs
 
